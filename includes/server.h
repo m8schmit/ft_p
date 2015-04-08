@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/25 17:08:19 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/02 11:25:34 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/08 10:55:00 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include <netdb.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include <dirent.h>
+
 # include "libft.h"
 
 typedef struct s_data
