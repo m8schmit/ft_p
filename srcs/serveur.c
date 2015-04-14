@@ -6,7 +6,7 @@
 /*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 14:42:57 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/08 17:18:56 by sho              ###   ########.fr       */
+/*   Updated: 2015/04/14 17:12:25 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static void	usage(char *str)
 	exit (-1);
 }
 
-// static void close_sock(int socket)
-// {
-// 	close(socket);
-// 	exit(-1);
-// }
+static void end_cmd(int cs)
+{
+	usleep(100);
+	ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n",1 , "null");
+	send(cs, "\0", 1, 0);
+}
+
 static int 		create_server(int port)
 {
 	int 				sock;
@@ -45,10 +47,7 @@ static int 		create_server(int port)
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	if(bind(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1 )
 		error_display("bind()");
-	/*
-	** pour recevoir les connexions avant de les traiter.
-	*/
-	listen(sock, 42);
+	listen(sock, 50);
 	return (sock);
 }
 
@@ -73,6 +72,7 @@ static void ft_ls(int cs)
 	}	
 	if(closedir(ptdir) == -1)
 		error_display("closedir()");
+	end_cmd(cs);
 }
 
 static void ft_pwd(int cs)
@@ -82,6 +82,7 @@ static void ft_pwd(int cs)
 	getcwd(dir, 1024);
 	ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n", ft_strlen(dir), dir);
 	send(cs, dir, ft_strlen(dir), 0);
+	end_cmd(cs);
 }
 
 static long ft_file_len(int fd)
@@ -98,61 +99,91 @@ static void ft_put(int cs, char *buf)
 	int 			fd;
 	long			len;
 	int 		 	ret;
+	char			*name;
 
 	tab = ft_strsplit(buf, ' ');
 	ft_bzero(buf, 1024);
 	tab[1] = ft_strtrim(tab[1]);
-	if ((fd = open(tab[1], O_RDONLY)) < 0)
-		ft_printf("error can't open %s.\n", tab[1]);
+	tab[1][ft_strlen(tab[1])] = '\0';
+	name = ft_strdup(tab[1]);
+
+	if ((fd = open(name, O_RDONLY)) < 0)
+	{
+		ft_printf("error can't open %s.\n", name);
+		send(cs, "-1", 2, 0);
+		sleep(1);
+	}
 	else
 	{
 		len = ft_file_len(fd);
-		ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n", ft_strlen(tab[1]), tab[1]);
-		send(cs, tab[1], ft_strlen(tab[1]), 0);
-		usleep(100);
 		ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n", ft_strlen(ft_itoa(len)), ft_itoa(len));
 		send(cs, ft_itoa(len), ft_strlen(ft_itoa(len)), 0);
+		sleep(1);
+		ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n", ft_strlen(name), name);
+		send(cs, name, ft_strlen(name), 0);
 		usleep(100);
 		while((ret = read(fd, buf, 1024)) > 0)
+		{
 			send(cs, buf, ret, 0);
+			ft_bzero(buf, 1024);
+		}
 		if(ret == -1)
 			error_display("read()");
 	}
+	
+	ft_putendl("close fd...");
 	close(fd);
 }
 
-static void ft_get(int cs, char *buf)
+static void ft_get(int sock, char *buf)
 {
 	int 	n;
 	int 	len;
 	int 	fd;
 	char	*name;
-	
-	n = recv(cs, buf, 1023, 0);
+
+	ft_bzero(buf, 1023);
+	n = recv(sock, buf, 1023, 0);
 	buf[n] = '\0';
-	ft_printf("\x1B[32mreceived %d bytes: [%s]\x1B[0m\n", ft_strlen(buf), buf);
-	name = ft_strdup(buf);
-	n = recv(cs, buf, 1023, 0);
-	buf[n] = '\0';
-	ft_printf("\x1B[32mreceived %d bytes: [%s]\x1B[0m\n", ft_strlen(buf), buf);
+	ft_printf("\x1B[33m(len)received %d bytes: [%s]\x1B[0m\n", ft_strlen(buf), buf);
 	len = ft_atoi(buf);
-	if ((fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
+	if(len == -1)
 	{
-		ft_printf("error can't create %s.\n", name);
+		ft_putendl("open()");
 	}
 	else
 	{
-		while(len > 0)
+		ft_bzero(buf, 1023);
+		n = recv(sock, buf, 1023, 0);
+		buf[n] = '\0';
+		ft_printf("\x1B[33m(name)received %d bytes: [%s]\x1B[0m\n", ft_strlen(buf), buf);
+		name = ft_strdup(buf);
+		
+		if ((fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
 		{
-			if((n = recv(cs, buf, 1023, 0)) < 2)
-				error_display("recv()");
-			write(fd, buf, n);
-			len -= n;
+			ft_printf("error can't create %s.\n", name);
+		}
+		else
+		{
+			while(len > 0)
+			{
+				ft_bzero(buf, 1023);
+				if((n = recv(sock, buf, 1023, 0)) < 2)
+				{
+					ft_bzero(buf, 1023);
+				}
+				ft_printf("\x1B[33m(content)received %d bytes: [%s]\x1B[0m\n", ft_strlen(buf), buf);
+				write(fd, buf, n);
+				len -= n;
+				ft_printf("len : %d\n", len);
+			}
 		}
 	}
-	ft_bzero(buf, 1024);
+	ft_bzero(buf, 1023);
+	ft_putendl("close fd...");
 	close(fd);
 }
+
 static void ft_cd(t_data *data, char *buf)
 {
 	char	**tab;
@@ -187,6 +218,7 @@ static void ft_cd(t_data *data, char *buf)
 
 		}
 		free(tmp);
+		end_cmd(data->cs);
 	}
 }
 static void app (t_data *data)
@@ -222,10 +254,10 @@ static void app (t_data *data)
 		else if (strncmp(buf, "put", 3) == 0)
 			ft_get(data->cs, buf);
 		else
+		{
 			send(data->cs, "Invalid command", 16, 0);
-		usleep(100);
-		ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n",1 , "null");
-		send(data->cs, "\0", 1, 0);
+			end_cmd(data->cs);
+		}
 	}
 	free(buf);
 }
@@ -244,13 +276,15 @@ int 		main(int ac, char ** av)
 	port = ft_atoi(av[1]);
 	sock = create_server(port);
 	getcwd(data.root, 1024);
-	while((data.cs = accept(sock, (struct sockaddr*)&csin, &cslen)))
+	while((data.cs = accept(sock, (struct sockaddr*)&csin, &cslen)) > -1)
 	{
 		if ((pid = fork()) == -1)
 			error_display("fork()");
 		else if (pid == 0)
 			app(&data);	
 	}
+	if (data.cs == -1)
+		error_display("accept()");
 	close (data.cs);
 	close(sock);
 	return (0);
