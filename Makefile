@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sho <sho@student.42.fr>                    +#+  +:+       +#+         #
+#    By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/27 19:17:42 by mschmit           #+#    #+#              #
-#    Updated: 2015/04/08 15:43:11 by sho              ###   ########.fr        #
+#    Updated: 2015/04/20 18:07:38 by mschmit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,11 @@ SRC_S		=	$(SRC)serveur.c
 
 OBJ_S		=	$(SRC_S:.c=.o)
 
-SRC_C		=	$(SRC)client.c
+SRC_C		=	$(SRC)client/client.c \
+				$(SRC)client/put.c \
+				$(SRC)client/get.c \
+				$(SRC)client/display.c \
+				$(SRC)client/error.c
 
 OBJ_C		=	$(SRC_C:.c=.o)
 

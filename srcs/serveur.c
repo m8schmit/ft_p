@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serveur.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 14:42:57 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/14 17:12:25 by sho              ###   ########.fr       */
+/*   Updated: 2015/04/20 17:30:36 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	usage(char *str)
 static void end_cmd(int cs)
 {
 	usleep(100);
-	ft_printf("\x1B[32msend %d bytes: [%s]\x1B[0m\n",1 , "null");
 	send(cs, "\0", 1, 0);
 }
 
@@ -255,7 +254,7 @@ static void app (t_data *data)
 			ft_get(data->cs, buf);
 		else
 		{
-			send(data->cs, "Invalid command", 16, 0);
+			send(data->cs, "ERROR", 5, 0);
 			end_cmd(data->cs);
 		}
 	}

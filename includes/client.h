@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/08 15:27:07 by sho               #+#    #+#             */
-/*   Updated: 2015/04/13 13:38:19 by sho              ###   ########.fr       */
+/*   Updated: 2015/04/20 18:07:14 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@
 #include <fcntl.h>
 #include "../includes/libft.h"
 
-
+void	ft_get(int sock, char *buf);
+void	error_display(char *str);
+void	ft_put(int cs, char *buf);
+void	ft_display(char *buf,  int sock);
 #endif
