@@ -6,11 +6,20 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 18:06:13 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:50:13 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/21 13:33:26 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/client.h"
+
+void			ft_help(int sock)
+{
+	write(0, "HELP:\n", 6);
+	write(0, "\t\x1B[1;37mls\x1B[0m -- list directory contents\n", 42);
+	write(0, "\t\x1B[1;37mpwd\x1B[0m -- return working directory name\n", 49);
+	write(0, "\t\x1B[1;37mget <file>\x1B[0m -- dl file from server\n", 46);
+	write(0, "\t\x1B[1;37mput <file>\x1B[0m -- up file to server\n", 44);
+}
 
 static void		execcmd(char *buf, int sock)
 {
@@ -23,6 +32,11 @@ static void		execcmd(char *buf, int sock)
 		ft_get(sock, buf);
 	else if (strncmp(buf, "put ", 4) == 0)
 		ft_put(sock, buf);
+	else if (strncmp(buf, "help", 4) == 0)
+	{
+		ft_bzero(buf, 1024);
+		ft_help(sock);
+	}
 	else
 		ft_putendl("ERROR");
 }
@@ -64,7 +78,8 @@ void			ft_display(char *buf, int sock)
 	else if (n > 0)
 	{
 		if (strncmp(buf, "put", 3) == 0
-			|| strncmp(buf, "get", 3) == 0)
+			|| strncmp(buf, "get", 3) == 0
+			|| strncmp(buf, "help", 4) == 0)
 			execcmd(buf, sock);
 		else
 		{
