@@ -6,13 +6,13 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 17:47:30 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/20 18:07:56 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/21 11:47:01 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/client.h"
 
-static void	usage(char *str)
+static void			usage(char *str)
 {
 	ft_printf("Usage: %s <addr> <port>\n", str);
 	exit (-1);
@@ -31,12 +31,12 @@ static int			create_client(char *addr, int port)
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
 	sin.sin_addr.s_addr = inet_addr(addr);
-	if(connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
+	if (connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
 		error_display("ERROR: connect()");
 	return (sock);
 }
 
-static long ft_file_len(int fd)
+static long			ft_file_len(int fd)
 {
 	struct stat	s;
 
@@ -44,7 +44,7 @@ static long ft_file_len(int fd)
 	return (s.st_size);
 }
 
-int			main(int ac, char ** av)
+int					main(int ac, char **av)
 {
 	int					port;
 	int					sock;
@@ -53,13 +53,11 @@ int			main(int ac, char ** av)
 	if (ac != 3)
 		usage(av[0]);
 	port = ft_atoi(av[2]);
-	if ((sock = create_client(av[1], port))== -1)
+	if ((sock = create_client(av[1], port)) == -1)
 		error_display("ERROR: sock()");
 	ft_bzero(buf, 1024);
-	while(1)
-	{
+	while (1)
 		ft_display(buf, sock);
-	}
 	close(sock);
 	return (0);
 }

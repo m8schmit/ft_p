@@ -6,7 +6,7 @@
 #    By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/27 19:17:42 by mschmit           #+#    #+#              #
-#    Updated: 2015/04/20 18:07:38 by mschmit          ###   ########.fr        #
+#    Updated: 2015/04/21 10:44:48 by mschmit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,16 @@ SRC			=	srcs/
 
 INCDIR 		=	includes/
 
-SRC_S		=	$(SRC)serveur.c
+SRC_S		=	$(SRC)serveur/serveur.c \
+				$(SRC)serveur/app.c \
+				$(SRC)serveur/ft_ls.c \
+				$(SRC)serveur/endcmd.c \
+				$(SRC)serveur/ft_pwd.c \
+				$(SRC)serveur/ft_cd.c \
+				$(SRC)serveur/get.c \
+				$(SRC)serveur/put.c \
+				$(SRC)serveur/error.c
+
 
 OBJ_S		=	$(SRC_S:.c=.o)
 

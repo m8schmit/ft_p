@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/20 17:34:05 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:50:56 by mschmit          ###   ########.fr       */
+/*   Created: 2015/04/21 10:43:47 by mschmit           #+#    #+#             */
+/*   Updated: 2015/04/21 11:42:22 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/client.h"
+#include "../../includes/server.h"
 
 static long		ft_file_len(int fd)
 {
@@ -49,14 +49,13 @@ int				ft_put(int cs, char *buf)
 
 	tab = ft_strsplit(buf, ' ');
 	ft_bzero(buf, 1024);
-	tab[1] = ft_strtrim(tab[1]);
-	tab[1][ft_strlen(tab[1]) - 1] = '\0';
-	if (tab[1][0] == '\0')
+	if (tab[1] == NULL)
 	{
-		ft_putendl("usage: put <file>.");
 		send(cs, "-1", 2, 0);
 		return (-1);
 	}
+	tab[1] = ft_strtrim(tab[1]);
+	tab[1][ft_strlen(tab[1])] = '\0';
 	name = ft_strdup(tab[1]);
 	if ((fd = open(name, O_RDONLY)) < 0)
 	{

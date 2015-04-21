@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/20 17:34:58 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:50:46 by mschmit          ###   ########.fr       */
+/*   Created: 2015/04/21 10:35:38 by mschmit           #+#    #+#             */
+/*   Updated: 2015/04/21 10:36:04 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/client.h"
+#include "../../includes/server.h"
 
-void error_display(char *str)
+void ft_pwd(int cs)
 {
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	exit(-1);
+	char dir[1024];
+
+	getcwd(dir, 1024);
+	ft_printf(GREENPRINT, ft_strlen(dir), dir);
+	send(cs, dir, ft_strlen(dir), 0);
+	end_cmd(cs);
 }

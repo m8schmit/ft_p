@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/20 17:35:30 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:34:54 by mschmit          ###   ########.fr       */
+/*   Created: 2015/04/21 10:43:07 by mschmit           #+#    #+#             */
+/*   Updated: 2015/04/21 11:38:25 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/client.h"
+#include "../../includes/server.h"
 
 static void		ft_get_norme(char *buf, int sock, int len, int fd)
 {
@@ -50,10 +50,7 @@ void			ft_get(int sock, char *buf)
 	buf[n] = '\0';
 	len = ft_atoi(buf);
 	if (len == -1)
-	{
 		ft_putendl("ERROR: open().");
-		ft_putendl("usage: get <file>.");
-	}
 	else
 		ft_get_norme(buf, sock, len, fd);
 	ft_bzero(buf, 1023);
