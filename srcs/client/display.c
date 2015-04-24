@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 18:06:13 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 13:33:26 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/24 11:33:04 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		ft_display_norme(int n, int sock, char *buf)
 		ft_printf("%s\n", buf);
 		if (strcmp(buf, "quit") == 0)
 			execcmd(buf, sock);
-		if (strcmp(buf, "ERROR") == 0)
+		if (strncmp(buf, "ERROR", 5) == 0)
 			error++;
 		ft_bzero(buf, 1024);
 	}
@@ -71,8 +71,10 @@ void			ft_display(char *buf, int sock)
 	int		ret;
 	int		n;
 
+	ft_bzero(buf, 1024);
 	ft_putstr("\x1B[31mft_p> \x1B[0m");
 	ret = read(0, buf, 1024);
+	buf[ret] = '\0';
 	if ((n = send(sock, buf, ft_strlen(buf) - 1, 0)) < 0)
 		error_display("ERROR: send()");
 	else if (n > 0)
@@ -82,8 +84,6 @@ void			ft_display(char *buf, int sock)
 			|| strncmp(buf, "help", 4) == 0)
 			execcmd(buf, sock);
 		else
-		{
 			ft_display_norme(n, sock, buf);
-		}
 	}
 }

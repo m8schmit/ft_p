@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:43:47 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:42:22 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/24 11:31:09 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,13 @@ static void		ft_put_norme(int cs, int fd, char *name, char *buf)
 	len = ft_file_len(fd);
 	send(cs, ft_itoa(len), ft_strlen(ft_itoa(len)), 0);
 	sleep(1);
-	send(cs, name, ft_strlen(name), 0);
+	if (chdir(name) != 0)
+		send(cs, name, ft_strlen(name), 0);
+	else
+	{
+		chdir("..");
+		send(cs, "-1", 2, 0);
+	}
 	usleep(100);
 	while ((ret = read(fd, buf, 1024)) > 0)
 	{
@@ -36,9 +42,10 @@ static void		ft_put_norme(int cs, int fd, char *name, char *buf)
 		ft_bzero(buf, 1024);
 	}
 	if (ret == -1)
-		error_display("ERROR: read()");
+		ft_printf("ERROR: read()\n");
 	else
 		ft_putendl("SUCCESS");
+	ft_bzero(buf, 1024);
 }
 
 int				ft_put(int cs, char *buf)

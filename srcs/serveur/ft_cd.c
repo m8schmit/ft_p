@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:37:28 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 13:33:59 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/04/24 09:19:29 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		ft_cd_norme(t_data *data, char *buf, char *tmp)
 	if (chdir(tmp) != 0)
 	{
 		ft_printf(GREENPRINT, data->cs, 19, "folder don't exist.");
-		send(data->cs, "folder don't exist.", 19, 0);
+		send(data->cs, "ERROR: folder don't exist.", 26, 0);
 	}
 	else if (ft_strncmp(data->root, getcwd(buf, 1024), data->len) == 0)
 	{
@@ -28,7 +28,7 @@ static void		ft_cd_norme(t_data *data, char *buf, char *tmp)
 	{
 		chdir(data->root);
 		ft_printf(GREENPRINT, data->cs, 14, "Out of limits.");
-		send(data->cs, "Out of limits.", 14, 0);
+		send(data->cs, "ERROR: Out of limits.", 21, 0);
 	}
 }
 
