@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 17:35:30 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/24 11:26:58 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/04 14:32:22 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void			ft_get(int sock, char *buf)
 	int		n;
 	int		len;
 	int		fd;
-	char	*name;
 
+	fd = 0;
 	ft_bzero(buf, 1023);
 	n = recv(sock, buf, 1023, 0);
 	buf[n] = '\0';

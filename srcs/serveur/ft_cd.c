@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:37:28 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/24 09:19:29 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/04 14:30:23 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void			ft_cd(t_data *data, char *buf)
 {
 	char	**tab;
 	char	*tmp;
-	char	pwd[1024];
 
 	tab = ft_strsplit(buf, ' ');
 	if (strcmp(tab[0], "cd") == 0 && tab[1] == NULL)

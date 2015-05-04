@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 17:47:30 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/24 10:59:19 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/04 14:31:44 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ static int			create_client(char *addr, int port)
 	if (connect(sock, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
 		error_display("ERROR: connect()");
 	return (sock);
-}
-
-static long			ft_file_len(int fd)
-{
-	struct stat	s;
-
-	fstat(fd, &s);
-	return (s.st_size);
 }
 
 int					main(int ac, char **av)

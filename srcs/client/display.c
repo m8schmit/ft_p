@@ -6,13 +6,13 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 18:06:13 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/24 11:33:04 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/04 14:33:18 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/client.h"
 
-void			ft_help(int sock)
+void			ft_help(void)
 {
 	write(0, "HELP:\n", 6);
 	write(0, "\t\x1B[1;37mls\x1B[0m -- list directory contents\n", 42);
@@ -35,7 +35,7 @@ static void		execcmd(char *buf, int sock)
 	else if (strncmp(buf, "help", 4) == 0)
 	{
 		ft_bzero(buf, 1024);
-		ft_help(sock);
+		ft_help();
 	}
 	else
 		ft_putendl("ERROR");

@@ -6,7 +6,7 @@
 #    By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/27 19:17:42 by mschmit           #+#    #+#              #
-#    Updated: 2015/04/21 10:44:48 by mschmit          ###   ########.fr        #
+#    Updated: 2015/05/04 14:29:53 by mschmit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ LIB_COMP 	=	-L ./$(LIBDIR) -lft
 
 CC 			=	gcc
 
-FLAG 		=	-I $(INCDIR) -g
+FLAG 		=	-I $(INCDIR) -g -Wall -Wextra -Werror
 
 RED = \033[33;31m
 BLUE = \033[33;34m
