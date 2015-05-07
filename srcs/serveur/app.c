@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:25:47 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/24 11:32:11 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/07 12:27:56 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	app_norme(t_data *data, char *buf)
 {
-	if (strcmp(buf, "pwd") == 0)
+	if (ft_strcmp(buf, "pwd") == 0)
 		ft_pwd(data);
-	else if (strcmp(buf, "ls") == 0)
+	else if (ft_strcmp(buf, "ls") == 0)
 		ft_ls(data);
-	else if (strncmp(buf, "cd", 2) == 0)
+	else if (ft_strncmp(buf, "cd", 2) == 0)
 		ft_cd(data, buf);
-	else if (strncmp(buf, "get ", 4) == 0)
+	else if (ft_strncmp(buf, "get ", 4) == 0)
 		ft_put(data->cs, buf);
-	else if (strncmp(buf, "put ", 4) == 0)
+	else if (ft_strncmp(buf, "put ", 4) == 0)
 		ft_get(data->cs, buf);
-	else if (strncmp(buf, "help", 4) == 0)
+	else if (ft_strncmp(buf, "help", 4) == 0)
 		ft_bzero(buf, 1024);
 	else
 	{
@@ -50,7 +50,7 @@ void		app(t_data *data)
 			error_display(buf);
 		buf[r] = '\0';
 		ft_printf(YELLOWPRINT, data->cs, r, buf);
-		if (strcmp(buf, "quit") == 0)
+		if (ft_strcmp(buf, "quit") == 0)
 		{
 			send(data->cs, "quit", 5, 0);
 			ret = 1;

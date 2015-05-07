@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 17:47:30 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/04 14:31:44 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/07 12:29:46 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int					main(int ac, char **av)
 	if (ac != 3)
 		usage(av[0]);
 	port = ft_atoi(av[2]);
+	if (ft_strcmp(av[1], "localhost") == 0)
+		av[1] = "127.0.0.1";
 	if ((sock = create_client(av[1], port)) == -1)
 		error_display("ERROR: sock()");
 	ft_bzero(buf, 1024);

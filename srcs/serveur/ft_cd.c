@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:37:28 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/04 14:30:23 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/07 12:28:12 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			ft_cd(t_data *data, char *buf)
 	char	*tmp;
 
 	tab = ft_strsplit(buf, ' ');
-	if (strcmp(tab[0], "cd") == 0 && tab[1] == NULL)
+	if (ft_strcmp(tab[0], "cd") == 0 && tab[1] == NULL)
 	{
 		chdir(data->root);
 		ft_printf(GREENPRINT, data->cs, ft_strlen(data->root), data->root);
