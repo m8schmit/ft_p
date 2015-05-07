@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 18:06:13 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/07 12:27:45 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/07 12:31:31 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			ft_help(void)
 	write(0, "\t\x1B[1;37mpwd\x1B[0m -- return working directory name\n", 49);
 	write(0, "\t\x1B[1;37mget <file>\x1B[0m -- dl file from server\n", 46);
 	write(0, "\t\x1B[1;37mput <file>\x1B[0m -- up file to server\n", 44);
+	write(0, "\t\x1B[1;37mcd [dir ...]\x1B[0m -- change the working dir\n", 51);
 }
 
 static void		execcmd(char *buf, int sock)
