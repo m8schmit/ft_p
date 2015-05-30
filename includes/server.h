@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/25 17:08:19 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 13:31:01 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/30 17:12:18 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_data
 	int				cs;
 	int				len;
 	char			root[1024];
+	char			buff[4096];
 }					t_data;
 
 void				error_display(char *str);

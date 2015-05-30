@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:35:38 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 13:28:36 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/30 17:56:18 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void ft_pwd(t_data *data)
 	char dir[1024];
 
 	getcwd(dir, 1024);
+	dir[ft_strlen(dir)] = '\n';
 	ft_printf(GREENPRINT, data->cs, ft_strlen(dir), dir);
 	send(data->cs, dir, ft_strlen(dir), 0);
 	end_cmd(data->cs);

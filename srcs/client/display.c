@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/20 18:06:13 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/07 12:31:31 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/30 18:15:00 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		ft_display_norme(int n, int sock, char *buf)
 	error = 0;
 	while ((n = recv(sock, buf, 1023, 0)) > 1)
 	{
-		if (n < 2)
+		if (n < 0)
 			break ;
 		buf[n] = '\0';
 		ft_printf("%s\n", buf);
@@ -76,9 +76,9 @@ void			ft_display(char *buf, int sock)
 	ft_putstr("\x1B[31mft_p> \x1B[0m");
 	ret = read(0, buf, 1024);
 	buf[ret] = '\0';
-	if ((n = send(sock, buf, ft_strlen(buf) - 1, 0)) < 0)
+	if ((n = send(sock, buf, ft_strlen(buf), 0)) < 0)
 		error_display("ERROR: send()");
-	else if (n > 0)
+	else if (n > 1)
 	{
 		if (ft_strncmp(buf, "put", 3) == 0
 			|| ft_strncmp(buf, "get", 3) == 0

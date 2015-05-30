@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   app.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:25:47 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/07 12:27:56 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/05/30 18:22:54 by sho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	app_norme(t_data *data, char *buf)
 		ft_bzero(buf, 1024);
 	else
 	{
-		send(data->cs, "ERROR", 5, 0);
+		send(data->cs, "ERROR\n", 6, 0);
 		end_cmd(data->cs);
 	}
 }
@@ -48,15 +48,18 @@ void		app(t_data *data)
 	{
 		if ((r = recv(data->cs, buf, 1024, 0)) < 0)
 			error_display(buf);
-		buf[r] = '\0';
+		if (ft_strlen(buf) == 0)
+			break ;
+		buf[r-1] = '\0';
 		ft_printf(YELLOWPRINT, data->cs, r, buf);
 		if (ft_strcmp(buf, "quit") == 0)
 		{
 			send(data->cs, "quit", 5, 0);
 			ret = 1;
 		}
-		else
+		else if (r > 1)
 			app_norme(data, buf);
+		ft_bzero(buf, 1024);
 	}
 	free(buf);
 }
