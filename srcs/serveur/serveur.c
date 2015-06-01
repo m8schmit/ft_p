@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 14:42:57 by mschmit           #+#    #+#             */
-/*   Updated: 2015/04/21 11:45:21 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/06/01 13:38:35 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int					main(int ac, char **av)
 		usage(av[0]);
 	port = ft_atoi(av[1]);
 	sock = create_server(port);
+	ft_printf("Server now Online (port[%d]).\n", port);
 	forksocket(sock);
 	close(sock);
 	return (0);

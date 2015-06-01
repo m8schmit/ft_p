@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:37:28 by mschmit           #+#    #+#             */
-/*   Updated: 2015/06/01 11:31:51 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/06/01 13:46:06 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			ft_cd(t_data *data, char *buf)
 		chdir(data->root);
 		ft_printf(GREENPRINT, data->cs, ft_strlen(data->root), data->root);
 		send(data->cs, data->root, ft_strlen(data->root), 0);
+		send(data->cs, "\n", 1, 0);
 	}
 	else
 	{

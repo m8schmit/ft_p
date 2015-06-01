@@ -6,7 +6,7 @@
 /*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:25:47 by mschmit           #+#    #+#             */
-/*   Updated: 2015/06/01 11:31:15 by mschmit          ###   ########.fr       */
+/*   Updated: 2015/06/01 13:45:20 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	app_norme(t_data *data, char *buf)
 		ft_pwd(data);
 	else if (ft_strcmp(buf, "ls") == 0)
 		ft_ls(data);
-	else if (ft_strncmp(buf, "cd", 2) == 0)
+	else if (!ft_strncmp(buf, "cd", 2)
+			&& (buf[2] == ' ' || buf[2] == '\0'))
 		ft_cd(data, buf);
 	else if (ft_strncmp(buf, "get ", 4) == 0)
 		ft_put(data->cs, buf);
