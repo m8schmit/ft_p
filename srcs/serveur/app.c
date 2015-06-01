@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   app.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:25:47 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/30 18:22:54 by sho              ###   ########.fr       */
+/*   Updated: 2015/06/01 11:31:15 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	app_norme(t_data *data, char *buf)
 {
+	ft_bzero(data->buff, ft_strlen(data->buff));
 	if (ft_strcmp(buf, "pwd") == 0)
 		ft_pwd(data);
 	else if (ft_strcmp(buf, "ls") == 0)
@@ -41,7 +42,6 @@ void		app(t_data *data)
 	char		*buf;
 
 	buf = (char*)malloc(sizeof(char) * 1024);
-	ft_bzero(buf, 1024);
 	r = 0;
 	ret = 0;
 	while (ret == 0)
@@ -50,7 +50,7 @@ void		app(t_data *data)
 			error_display(buf);
 		if (ft_strlen(buf) == 0)
 			break ;
-		buf[r-1] = '\0';
+		buf[r - 1] = '\0';
 		ft_printf(YELLOWPRINT, data->cs, r, buf);
 		if (ft_strcmp(buf, "quit") == 0)
 		{

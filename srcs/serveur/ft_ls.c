@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sho <sho@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mschmit <mschmit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/04/21 10:28:44 by mschmit           #+#    #+#             */
-/*   Updated: 2015/05/30 17:22:21 by sho              ###   ########.fr       */
+/*   Updated: 2015/06/01 11:18:55 by mschmit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void ft_ls(t_data *data)
 	ft_bzero(data->buff, ft_strlen(data->buff));
 	if (closedir(ptdir) == -1)
 		error_display("ERROR: closedir()");
+	ft_bzero(data->buff, ft_strlen(data->buff));
 	end_cmd(data->cs);
 }
